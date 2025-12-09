@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = 'dockerhub-creds'
+        DOCKERHUB_CREDENTIALS = 'dockerhub'
         DOCKER_IMAGE = "1jashshah/jenkins-demo"
-        DEPLOY_SERVER = "ubuntu@3.110.213.174"
+        DEPLOY_SERVER = "ubuntu@52.66.156.189"
     }
 
     stages {
