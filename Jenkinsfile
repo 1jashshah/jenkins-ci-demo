@@ -37,9 +37,23 @@ pipeline {
         stage('Deploy to EC2') {
             steps {
                 sh """
-                    docker pull $DOCKER_IMAGE:latest &&
+                    # Stop container if already running
+                    if [ \$(docker ps -q -f name=demo) ]; then
+                        echo "Stopping existing container..."
+                        docker stop demo
+                    fi
+
+                    # Remove container if exists
+                    if [ \$(docker ps -aq -f name=demo) ]; then
+                        echo "Removing existing container..."
+                        docker rm demo
+                    fi
+
+                    # Pull latest image
+                    docker pull $DOCKER_IMAGE:latest
+
+                    # Run new container
                     docker run -d --name demo -p 80:80 $DOCKER_IMAGE:latest
-                '
                 """
             }
         }
