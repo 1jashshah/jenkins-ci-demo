@@ -37,8 +37,6 @@ pipeline {
         stage('Deploy to EC2') {
             steps {
                 sh """
-                    docker stop demo || true &&
-                    docker rm demo || true &&
                     docker pull $DOCKER_IMAGE:latest &&
                     docker run -d --name demo -p 80:80 $DOCKER_IMAGE:latest
                 '
