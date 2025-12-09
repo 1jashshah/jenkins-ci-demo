@@ -4,7 +4,6 @@ pipeline {
     environment {
         DOCKERHUB_CREDENTIALS = 'dockerhub'
         DOCKER_IMAGE = "1jashshah/jenkins-demo"
-        DEPLOY_SERVER = "ubuntu@52.66.156.189"
     }
 
     stages {
@@ -38,7 +37,6 @@ pipeline {
         stage('Deploy to EC2') {
             steps {
                 sh """
-                ssh -o StrictHostKeyChecking=no $DEPLOY_SERVER '
                     docker stop demo || true &&
                     docker rm demo || true &&
                     docker pull $DOCKER_IMAGE:latest &&
